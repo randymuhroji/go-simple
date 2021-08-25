@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "21224292-67e6-46fa-ac6b-89cc24d444a4",
+		"name": "kumparan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get article list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/article/list?limit=100&page=1&sort.key=created_at&sort.value=DESC",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"article",
+						"list"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "sort.key",
+							"value": "created_at"
+						},
+						{
+							"key": "sort.value",
+							"value": "DESC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/v1/article/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Berita Satu\",\n    \"author\": \"author satu\",\n    \"body\": \"body satu\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/article/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"article",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,77 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/api/v1/article/create": {
+            "post": {
+                "description": "create article",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Article Management"
+                ],
+                "summary": "Create Article",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "interface"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/article/list": {
+            "get": {
+                "description": "get all list article",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Article Management"
+                ],
+                "summary": "Get Article List",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "interface"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Response": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object"
+                },
+                "error": {
+                    "type": "object"
+                },
+                "log_id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "object"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
