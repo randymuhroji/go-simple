@@ -1,17 +1,26 @@
 package handler
 
 import (
-	"kumparan/config"
-	"kumparan/config/database"
-	article "kumparan/module/v1/article"
-	authMid "kumparan/utl/middleware/auth"
+	"go-simple/config"
+	"go-simple/config/database"
+	authModule "go-simple/module/v1/auth"
+	orderModule "go-simple/module/v1/order"
+	paymentModule "go-simple/module/v1/payment"
+	productModule "go-simple/module/v1/product"
+	system "go-simple/module/v1/system"
+	authMid "go-simple/utl/middleware/auth"
 
-	cnfElastic "kumparan/config/elastic"
+	userModule "go-simple/module/v1/user"
 )
 
 type Service struct {
 	MiddlewareAuth *authMid.Handle
-	ArticleModule  *article.Module
+	SystemModule   *system.Module
+	UserModule     *userModule.Module
+	ProductModule  *productModule.Module
+	OrderModule    *orderModule.Module
+	PaymentModule  *paymentModule.Module
+	AuthModule     *authModule.Module
 }
 
 func InitHandler() *Service {
@@ -22,23 +31,27 @@ func InitHandler() *Service {
 		panic(err)
 	}
 
-	// elastic init
-	ElasticConnection, err := cnfElastic.NewElastic()
-	if err != nil {
-		panic(err)
-	}
-
 	config := config.Configuration{
-		MysqlDB:      MySQLConnection,
-		ElasticeConn: ElasticConnection,
+		MysqlDB: MySQLConnection,
 	}
 
 	// set service modular
 	middlewareAuth := authMid.InitAuthMiddleware(config)
-	moduleArticle := article.InitModule(config)
+
+	moduleAuth := authModule.InitModule(config)
+	moduleSystem := system.InitModule(config)
+	moduleUser := userModule.InitModule(config)
+	moduleProduct := productModule.InitModule(config)
+	moduleOrder := orderModule.InitModule(config)
+	modulePayment := paymentModule.InitModule(config)
 
 	return &Service{
-		ArticleModule:  moduleArticle,
+		SystemModule:   moduleSystem,
+		AuthModule:     moduleAuth,
+		UserModule:     moduleUser,
+		ProductModule:  moduleProduct,
+		OrderModule:    moduleOrder,
+		PaymentModule:  modulePayment,
 		MiddlewareAuth: middlewareAuth,
 	}
 }

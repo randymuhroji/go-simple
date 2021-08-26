@@ -1,7 +1,7 @@
 package secure
 
 import (
-	"kumparan/utl/middleware/cors"
+	"go-simple/utl/middleware/cors"
 
 	"github.com/labstack/echo/v4"
 )

@@ -3,7 +3,7 @@ package database
 import (
 	"errors"
 	"fmt"
-	"kumparan/config/env"
+	"go-simple/config/env"
 	"sync"
 	"time"
 
@@ -22,6 +22,7 @@ var (
 
 // CreateDBConnection function for creating database connection
 func CreateDBConnection(descriptor string, maxIdle int, MaxOpen int) (*sqlx.DB, error) {
+	fmt.Println(descriptor)
 	db, err := sqlx.Connect("mysql", descriptor)
 	if err != nil {
 		log.Errorf("error database %v", err)

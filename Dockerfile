@@ -11,7 +11,7 @@ RUN export GOSUMDB=off
 ################################
 # Build Service:
 ################################
-WORKDIR /usr/share/project/kumparan
+WORKDIR /usr/share/project/go-simple
 
 COPY  . .
 
@@ -30,18 +30,18 @@ RUN apt-get update
 RUN apt-get install -y ca-certificates
 
 # Copy Binary
-COPY --from=build-golang /usr/share/project/kumparan/bin /usr/share/project/kumparan/bin/
+COPY --from=build-golang /usr/share/project/go-simple/bin /usr/share/project/go-simple/bin/
 
-WORKDIR /usr/share/project/kumparan
+WORKDIR /usr/share/project/go-simple
 
 # Create group and user to the group
-RUN groupadd -r kumparan && useradd -r -s /bin/false -g kumparan kumparan
+RUN groupadd -r QvXRfV && useradd -r -s /bin/false -g QvXRfV QvXRfV
 
 # Set ownership golang directory
-RUN chown -R kumparan:kumparan /usr/share/project/kumparan
+RUN chown -R QvXRfV:QvXRfV /usr/share/project/go-simple
 
 # Make docker container rootless
-USER kumparan
+USER QvXRfV
 
 # EXPOSE 8080
 

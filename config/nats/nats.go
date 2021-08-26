@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
-	"kumparan/config/env"
+	"go-simple/config/env"
 
 	"time"
 

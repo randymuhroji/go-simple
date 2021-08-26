@@ -1,8 +1,8 @@
 package main
 
 import (
-	"kumparan/config/env"
-	"kumparan/handler"
+	"go-simple/config/env"
+	"go-simple/handler"
 	"os"
 	"os/signal"
 )

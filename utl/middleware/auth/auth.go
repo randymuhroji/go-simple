@@ -3,10 +3,10 @@ package auth
 import (
 	"errors"
 	"fmt"
-	"kumparan/config"
-	"kumparan/model"
-	glJwt "kumparan/utl/jwt"
-	"kumparan/utl/response"
+	"go-simple/config"
+	"go-simple/model"
+	glJwt "go-simple/utl/jwt"
+	"go-simple/utl/response"
 	"net/http"
 	"strings"
 	"time"
@@ -79,6 +79,7 @@ func (h *Handle) BearerVerify() echo.MiddlewareFunc {
 				if jwt.GetSigningMethod("HS256") != t.Method {
 					return nil, errors.New("system unauthorized")
 				}
+
 				return []byte(glJwt.Key), nil
 			})
 
@@ -94,6 +95,15 @@ func (h *Handle) BearerVerify() echo.MiddlewareFunc {
 
 			if claims, ok := tkn.Claims.(*glJwt.BearerClaims); tkn.Valid && ok {
 
+				if !time.Unix(int64(claims.Exp), 0).After(time.Now()) || time.Unix(int64(claims.Exp), 0).Before(time.Now()) {
+					return response.Error(c, model.Response{
+						LogId:   c.Get("request_id").(string),
+						Status:  http.StatusUnauthorized,
+						Message: nil,
+						Data:    nil,
+						Error:   "token has been expired",
+					})
+				}
 				c.Set("token", tkn.Raw)
 				c.Set("email", claims.Email)
 

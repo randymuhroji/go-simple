@@ -1,7 +1,7 @@
 package response
 
 import (
-	"kumparan/model"
+	"go-simple/model"
 
 	"github.com/labstack/echo/v4"
 )

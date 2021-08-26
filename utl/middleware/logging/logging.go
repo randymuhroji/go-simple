@@ -1,7 +1,7 @@
 package logging
 
 import (
-	"kumparan/utl/middleware/request"
+	"go-simple/utl/middleware/request"
 
 	"github.com/labstack/echo/v4"
 )

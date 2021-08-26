@@ -3,21 +3,17 @@ package handler
 import (
 	"context"
 	"fmt"
-	"kumparan/config/env"
-	"kumparan/utl/middleware/logging"
-	"kumparan/utl/middleware/secure"
+	"go-simple/config/env"
+	"go-simple/utl/middleware/logging"
+	"go-simple/utl/middleware/secure"
 	"net/http"
 
 	"os"
 	"os/signal"
 	"time"
 
-	"kumparan/pkg/swagger"
-	_ "kumparan/pkg/swagger/docs"
-
 	"github.com/labstack/echo/v4"
 	echoMiddleware "github.com/labstack/echo/v4/middleware"
-	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 const DefaultPort = 8080
@@ -25,8 +21,6 @@ const DefaultPort = 8080
 // HTTPServerMain main function for serving services over http
 
 func (s *Service) HTTPServerMain() *echo.Echo {
-	// to active swagger
-	swagger.Init()
 
 	e := echo.New()
 
@@ -40,15 +34,34 @@ func (s *Service) HTTPServerMain() *echo.Echo {
 	// administrator group
 	adm := e.Group("/api/v1")
 
-	// module identity access management
-	ModuleArticle := adm.Group("/article")
-	s.ArticleModule.HandleRest(ModuleArticle)
+	// module system module
+	ModuleSystem := adm.Group("/system")
+	s.SystemModule.HandleRest(ModuleSystem)
 
-	e.GET("/docs/*", echoSwagger.WrapHandler)
+	// auth module
+	ModuleAuth := adm.Group("/auth")
+	s.AuthModule.HandleRest(ModuleAuth)
+
+	// module user
+	ModuleUser := adm.Group("/user", s.MiddlewareAuth.BearerVerify())
+	s.UserModule.HandleRest(ModuleUser)
+
+	// module product
+	ModuleProduct := adm.Group("/product", s.MiddlewareAuth.BearerVerify())
+	s.ProductModule.HandleRest(ModuleProduct)
+
+	// module order
+	ModuleOrder := adm.Group("/order", s.MiddlewareAuth.BearerVerify())
+	s.OrderModule.HandleRest(ModuleOrder)
+
+	// module payment
+	ModulePayment := adm.Group("/payment", s.MiddlewareAuth.BearerVerify())
+	s.PaymentModule.HandleRest(ModulePayment)
 
 	return e
 }
 
+// start handle service
 func (s *Service) StartServer() {
 	server := s.HTTPServerMain()
 	listenerPort := fmt.Sprintf(":%v", env.Conf.HttpPort)
@@ -61,6 +74,7 @@ func (s *Service) StartServer() {
 	}
 }
 
+// shutdown handler service
 func (s *Service) ShutdownServer() {
 	server := s.HTTPServerMain()
 

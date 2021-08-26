@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"sync/atomic"
+	"time"
 )
 
 var reqid uint64
@@ -31,4 +32,8 @@ func Id() string {
 	sb.WriteString(b64[0:10])
 
 	return fmt.Sprintf("%s-%08d", sb.String(), atomic.AddUint64(&reqid, 1))
+}
+
+func Order() string {
+	return fmt.Sprintf("%s%02d", time.Now().Format("20060102150405"), atomic.AddUint64(&reqid, 1))
 }

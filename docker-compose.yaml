@@ -1,66 +1,37 @@
 version: '3.7'
 
 services:
-  kumparan-rest:
+  go-simple-rest:
     build: .
-    command: rest-service
+    command: ./bin/rest-service
     depends_on:
-      - kumparan-nats
-      - kumparan-elasticsearch
-      - kumparan-mysql
+      - go-simple-mysql
     ports:
-      - '8080:8080'
+      - 9200:8080
     environment:
       DB_MAX_IDLE_CONN: 10
       DB_MAX_OPEN_CONN: 100
-      DB_NAME_MYSQL: kumparandb
-      DB_USER_MYSQL: nats:4222
-      DB_PASSWORD_MYSQL: kumparan
+      DB_NAME_MYSQL: simpledb
+      DB_USER_MYSQL: VywiNaohioeuTWLp
+      DB_PASSWORD_MYSQL: uxjgLBfObrPbTqcVNUqgAZWytJRLamfI
       DB_HOST_MYSQL: kumparan-mysql
       DB_PORT_MYSQL: 3306
-      NATS_ADDRESS: kumparan-nats:4222
-      ELASTICSEARCH_ADDRESS: kumparan-elasticsearch:9200
 
-  kumparan-event:
-    build: .
-    command: event-service
-    depends_on:
-      - kumparan-nats
-      - kumparan-elasticsearch
-      - kumparan-mysql
-    environment:
-      DB_MAX_IDLE_CONN: 10
-      DB_MAX_OPEN_CONN: 100
-      DB_NAME_MYSQL: kumparandb
-      DB_USER_MYSQL: nats:4222
-      DB_PASSWORD_MYSQL: kumparan
-      DB_HOST_MYSQL: kumparan-mysql
-      DB_PORT_MYSQL: 3306
-      NATS_ADDRESS: kumparan-nats:4222
-      ELASTICSEARCH_ADDRESS: elasticsearch:9200
-
-  kumparan-mysql:
+  go-simple-mysql:
     image: mysql:5.7
     restart: always
     ports:
       - '3308:3306'
     environment:
-      MYSQL_DATABASE: kumparandb
-      MYSQL_USER: kumparan
-      MYSQL_PASSWORD: kumparan
-    # volumes:
-    #   - mysql-db:/var/lib/mysql
+      MYSQL_DATABASE: simpledb
+      MYSQL_USER: VywiNaohioeuTWLp
+      MYSQL_PASSWORD: uxjgLBfObrPbTqcVNUqgAZWytJRLamfI
+      MYSQL_ROOT_PASSWORD: VywiNaohioeuTWLp
+      MYSQL_ALLOW_EMPTY_PASSWORD: VywiNaohioeuTWLp
+      MYSQL_RANDOM_ROOT_PASSWORD: VywiNaohioeuTWLp
+    volumes:
+      - ./data/mysql:/var/lib/mysql
 
-  kumparan-nats:
-    image: nats-streaming:0.17.0
-    restart: always
-
-  kumparan-elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
-    ports:
-      - '9200:9200'
-    environment:
-      - discovery.type=single-node
 
   # volumes:
   #   mysql-db:

@@ -2,7 +2,7 @@ package jwt
 
 import (
 	"errors"
-	"kumparan/model"
+	"go-simple/model"
 	"os"
 	"time"
 

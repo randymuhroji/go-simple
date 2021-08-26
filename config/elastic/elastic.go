@@ -2,7 +2,7 @@ package elastic
 
 import (
 	"context"
-	"kumparan/config/env"
+	"go-simple/config/env"
 	"net"
 	"net/http"
 	"time"

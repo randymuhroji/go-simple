@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "RUN REST",
+      "name": "RUN",
       "type": "go",
       "request": "launch",
       "mode": "auto",
@@ -13,32 +13,11 @@
       "env": {
         "DB_MAX_IDLE_CONN": 10,
         "DB_MAX_OPEN_CONN": 100,
-        "DB_NAME_MYSQL": "kumparandb",
-        "DB_USER_MYSQL": "password",
-        "DB_PASSWORD_MYSQL": "password",
-        "DB_HOST_MYSQL": "127.0.0.1",
-        "DB_PORT_MYSQL": 3306,
-        "NATS_HOST": "127.0.0.1:4222",
-        "ELASTIC_HOST": "http://127.0.0.1:9200"
-      }
-    },
-
-    {
-      "name": "RUN EVENT",
-      "type": "go",
-      "request": "launch",
-      "mode": "auto",
-      "program": "${workspaceFolder}/cmd/event",
-      "env": {
-        "DB_MAX_IDLE_CONN": 10,
-        "DB_MAX_OPEN_CONN": 100,
-        "DB_NAME_MYSQL": "kumparandb",
-        "DB_USER_MYSQL": "password",
-        "DB_PASSWORD_MYSQL": "password",
-        "DB_HOST_MYSQL": "127.0.0.1",
-        "DB_PORT_MYSQL": 3306,
-        "NATS_HOST": "127.0.0.1:4222",
-        "ELASTICSEARCH_HOST": "127.0.0.1:9200"
+        "DB_NAME_MYSQL": "simpledb",
+        "DB_USER_MYSQL": "VywiNaohioeuTWLp",
+        "DB_PASSWORD_MYSQL": "uxjgLBfObrPbTqcVNUqgAZWytJRLamfI",
+        "DB_HOST_MYSQL": "localhost",
+        "DB_PORT_MYSQL": 3308
       }
     }
   ]
